@@ -1,0 +1,43 @@
+svg {
+  font: 10px sans-serif;
+  width: 100%; }
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #ccc;
+  shape-rendering: crispEdges; }
+
+.axis text {
+  fill: #ccc; }
+
+.dot {
+  stroke: #000; }
+
+svg > g {
+  pointer-events: all;
+  cursor: ew-resize; }
+
+g.bank text {
+  text-anchor: middle; }
+
+line.libor-span {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+  stroke-width: 3; }
+
+g.bank:not(.accepted) {
+  fill: #ccc; }
+
+g.libor-mark text {
+  text-anchor: middle; }
+
+g.bank.captured {
+  fill: red; }
+
+g.bank line.influence {
+  stroke: red;
+  shape-rendering: crispEdges; }
+
+/*# sourceMappingURL=main.css.map */
