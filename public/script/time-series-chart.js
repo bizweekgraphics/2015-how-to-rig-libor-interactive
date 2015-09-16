@@ -111,7 +111,9 @@ function timeSeriesChart() {
 
         d3.select("#example1 .libor-chart")
           .datum(newData)
-          .call(liborChart());
+          .transition()
+          .ease("linear")
+          .call(liborChart().scale(true));
       })
 
     });
