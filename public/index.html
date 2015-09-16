@@ -121,21 +121,31 @@
 
             <p>Historically, Libor has moved like this. Mouse or touch to see the contributions of banks' rates at any time. SEE: </p>
 
-            <svg></svg>
+            <div id="example1">
+              <div class="time-series"></div>
+              <div class="libor-chart"></div>
+            </div>
 
             <p>This is called a trimmed average, and means that even total control over how one bank sets its rates can't necessarily move it. Mouse or touch to change one of the hypothetical rates:</p>
 
-            <svg></svg>
+            <div id="example2"></div>
 
             <p>But what if you had sway at multiple banks — and if some folks just lazily set rates near some perceived consensus?</p>
 
             <p>In this toy model of how Libor works, you have total control over how one bank sets its rates, and some random partial influence on other banks, who will tend to follow you. Move your mouse along the axis to set your rate.</p>
 
-            <div id="gamey"></div>
+            <div id="example3"></div>
 
             <p>All sorts of things are influenced by Libor, and if you could move it, you could make money. For instance, let's consider the impact on a simplified interest rate swap:</p>
 
-            <svg></svg>
+            <div id="example4">
+              <blockquote style="padding: 3em;">
+                <p>Principal of $12,000,000</p>
+                <p>Counterparty pays you fixed interest of <span id="fixed-interest-rate"></span> = <span id="fixed-interest-dollar"></span></p>
+                <p>You pay counterparty floating interest of <span id="floating-interest-rate"></span> = <span id="floating-interest-dollar"></span></p>
+                <p>Net outcome: <span id="net-outcome"></span></p>
+              </blockquote>
+            </div>
 
             <p>If you could pull that off in real life, then you'd have the makings of a financial conspiracy for the ages TEASE TEASE LINK TO FEATURE.</p>
 
@@ -211,6 +221,8 @@
         </script>
 
         <script src="script/d3-jetpack.js" charset="utf-8"></script>
+        <script src="script/libor-chart.js" charset="utf-8"></script>
+        <script src="script/time-series-chart.js" charset="utf-8"></script>
         <script src="script/main.js" charset="utf-8"></script>
 
     </body>

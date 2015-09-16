@@ -1,45 +1,3 @@
-var rRand = d3.random.normal(.05, .01),
-    drRand = d3.random.normal(0, .00005),
-    influenceRand = d3.random.logNormal(0,1);
-
-var rates = d3.range(16).map(function(d, i) {
-  return {
-    "name": "Bank " + (i+1),
-    "r": rRand(),
-    "vr": drRand(),
-    "influence": influenceRand()/2000,
-    "vrInfluence": 0,
-    "captured": false
-  };
-});
-
-var libby = liborChart()
-  .capture(true)
-  .influence(true);
-
-var gamey = d3.select("#gamey")
-  .datum(rates)
-  .call(libby);
-
-function randomWalk(rates) {
-  rates.forEach(function(d,i) {
-    if(d.captured) return;
-    d.r += d.vr;
-    d.vr += drRand() - 0.2 * d.vr;
-
-    if(d.mouse) {
-      d.vr += d.influence * (d.mouse - d.r);
-    }
-  })
-}
-
-d3.timer(function(t) {
-  randomWalk(rates);
-  gamey.call(libby);
-});
-
-///////
-
 function liborChart() {
 
   var sel,
@@ -61,8 +19,12 @@ function liborChart() {
       .tickSize("10")
       .tickFormat(percentage);
 
-  var mouseCapture,
-      mouseInfluence;
+  var mouseCapture = false,
+      mouseInfluence = false;
+
+  var liborRates,
+      liborExtent,
+      liborRate;
 
   function render(selection) {
     sel = selection;
@@ -76,7 +38,7 @@ function liborChart() {
       var svg = d3.select(this).selectAll("svg").data([rates]);
 
       // Otherwise, create the skeletal chart.
-      setup(svg.enter());
+      setup(svg.enter(), rates);
 
       // Update the outer dimensions
       svg
@@ -87,11 +49,12 @@ function liborChart() {
       var svgG = svg.select("g.chart-group");
 
       rates.sort(function(a,b) { return a.r-b.r; });
-      var liborRates = rates.slice(Math.round(rates.length*.25),Math.round(rates.length*.75));
-      var liborExtent = d3.extent(liborRates, ƒ('r'));
-      var liborRate = liborRates.reduce(function(a, b) { return a + b.r; }, 0) / liborRates.length;
+      liborRates = rates.slice(Math.round(rates.length*.25),Math.round(rates.length*.75));
+      liborExtent = d3.extent(liborRates, ƒ('r'));
+      liborRate = liborRates.reduce(function(a, b) { return a + b.r; }, 0) / liborRates.length;
 
       svg.selectAll("g.bank")
+        .data(rates, ƒ('name'))
         .attr("transform", function(d) { return "translate("+x(d.r)+"," + height/2 + ")"; })
         .classed("captured", ƒ('captured'))
         .classed("accepted", function(d) { return d.r >= liborExtent[0] && d.r <= liborExtent[1]; });
@@ -119,7 +82,11 @@ function liborChart() {
     return render;
   };
 
-  function setup(svg) {
+  render.libor = function() {
+    return liborRate;
+  }
+
+  function setup(svg, rates) {
 
     svg = svg.append("svg")
       .append("g.chart-group")
@@ -188,19 +155,19 @@ function liborChart() {
       })
     }
 
-  }
-
-  function influenceRates(mouse) {
-    if(!mouseInfluence) return;
-    if(mouse) {
-      rates.forEach(function(d,i) {
-        d.mouse = x.invert(mouse[0]);
-      })
-    } else {
-      rates.forEach(function(d,i) {
-        d.mouse = false;
-      })      
+    function influenceRates(mouse) {
+      if(!mouseInfluence) return;
+      if(mouse) {
+        rates.forEach(function(d,i) {
+          d.mouse = x.invert(mouse[0]);
+        })
+      } else {
+        rates.forEach(function(d,i) {
+          d.mouse = false;
+        })      
+      }
     }
+
   }
 
   return render;
