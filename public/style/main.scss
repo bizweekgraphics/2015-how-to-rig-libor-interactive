@@ -18,7 +18,7 @@ svg {
   stroke: #000;
 }
 
-svg > g {
+svg g.chart-group.mousey {
   pointer-events: all;
   cursor: ew-resize;
 }
