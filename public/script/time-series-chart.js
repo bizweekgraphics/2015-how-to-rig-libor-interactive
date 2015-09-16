@@ -35,12 +35,12 @@ function timeSeriesChart() {
 
       // Update the x-scale.
       xScale
-          .domain(d3.extent(data, function(d) { return d.date; }))
+          .domain(d3.extent(data, ƒ('date')))
           .range([0, width - margin.left - margin.right]);
 
       // Update the y-scale.
       yScale
-          .domain([0, d3.max(data, function(d) { return d.avg; })])
+          .domain([0, d3.max(data, ƒ('avg'))])
           .range([height - margin.top - margin.bottom, 0]);
 
       // Select the svg element, if it exists.
@@ -95,7 +95,7 @@ function timeSeriesChart() {
 
       g.on("mousemove", function(d) {
         var mouseX = xScale.invert(d3.mouse(this)[0]);
-        var bisect = d3.bisector(function(d) { return d.date; }).left;
+        var bisect = d3.bisector(ƒ('date')).left;
         var latest = data[bisect(data, mouseX)-1];
 
         var newData = [];

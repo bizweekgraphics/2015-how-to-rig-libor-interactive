@@ -137,19 +137,19 @@ function liborChart() {
       svg.classed("mousey", true);
 
       svg.on("mouseenter", function() {
-        rates.filter(function(d,i) { return d.name=="Bank 1"; })[0].captured = true;
+        rates.filter(function(d,i) { return d.captured; }).forEach(function(d) { d.captured = false; });
+        closest(ƒ('r'))(rates,x.invert(d3.mouse(this)[0])).captured = true;
         sel.call(render);
       })
 
       svg.on("mouseleave", function() {
-        rates.filter(function(d,i) { return d.name=="Bank 1"; })[0].captured = false;
+        closest(ƒ('r'))(rates,x.invert(d3.mouse(this)[0])).captured = false;
         influenceRates(false);
         sel.call(render);
       })
 
       svg.on("mousemove", function() {
-        mouse = d3.mouse(this);
-        rates.filter(function(d,i) { return d.name=="Bank 1"; })[0].r = x.invert(d3.mouse(this)[0]);
+        rates.filter(function(d,i) { return d.captured; })[0].r = x.invert(d3.mouse(this)[0]);
         influenceRates(d3.mouse(this));
         sel.call(render);
       })
@@ -171,4 +171,18 @@ function liborChart() {
   }
 
   return render;
+}
+
+function closest(accessor) {
+  var bi = d3.bisector(accessor).right;
+  return function(array, item) {
+    var i = bi(array, item);
+    var left = array[i-1];
+    var right = array[i];
+
+    var dLeft = (left !== undefined) ? Math.abs(accessor(left) - item) : Infinity;
+    var dRight = (right !== undefined) ? Math.abs(accessor(right) - item) : Infinity;
+
+    return dLeft <= dRight ? left : right;
+  }
 }
