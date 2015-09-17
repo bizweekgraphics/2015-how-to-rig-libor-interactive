@@ -117,37 +117,45 @@
 
           <section class="copyblock copywidth">
 
-            <p>Every day, 16 banks say how much it might cost them to borrow in various currencies, for various lengths of time. The four highest and four lowest figures are discarded, and the average of the remaining eight become that day’s Libor.</p>
+            <p>The London Interbank Offered Rate, or Libor, is a global benchmark for the cost of borrowing. Every day, 16 banks say how much it might cost them to borrow money, in various currencies, for various lengths of time. In each category, the four highest and four lowest submitted figures are discarded, and the average of the remaining eight become that day’s Libor in that category.</p>
 
-            <p>Historically, Libor has moved like this. Mouse or touch to see the contributions of banks' rates at any time. SEE: </p>
+            <p>Notice how Libor rates spiked during the 2008 financial crisis, and have been low lately.</p>
 
-            <div id="example1">
+            <p class="instructions"><span class="fig">Fig. 1</span> Mouse or touch to see banks’ submitted rates on a given date</p>
+
+            <div class="fig" id="fig1">
               <div class="time-series"></div>
               <div class="libor-chart"></div>
             </div>
 
-            <p>This is called a trimmed average, and means that even total control over how one bank sets its rates can't necessarily move it. Mouse or touch to change one of the hypothetical rates:</p>
+            <p>The fact that Libor is computed as a “trimmed average” means that submitting a wildly high or low guess doesn’t move the figure. Even if you had total control over how one bank sets its rates, you couldn’t necessarily move Libor at all.</p>
 
-            <div id="example2"></div>
+            <p class="instructions"><span class="fig">Fig. 2</span> Mouse or touch to change a hypothetical bank’s submitted rate</p>
 
-            <p>But what if you had sway at multiple banks — and if some folks just lazily set rates near some perceived consensus?</p>
+            <div class="fig" id="fig2"></div>
 
-            <p>In this toy model of how Libor works, you have total control over how one bank sets its rates, and some random partial influence on other banks, who will tend to follow you. Move your mouse along the axis to set your rate.</p>
+            <p>So when Tom Hayes allegedly set out to manipulate rates, he needed help. He allegedly offered favors to people in power, as well as counting on some degree of lazy herd mentality: some people just set their rates based on where they expect others to set their rates.
 
-            <div id="example3"></div>
+            <p>In this hypothetical toy model of how Libor works, you have total control over how one bank sets its rates, and some random partial influence on other banks, who will tend to follow you.</p>
 
-            <p>All sorts of things are influenced by Libor, and if you could move it, you could make money. For instance, let's consider the impact on a simplified interest rate swap:</p>
+            <p class="instructions"><span class="fig">Fig. 3</span> Mouse or touch to change a hypothetical bank’s submitted rate; others may follow</p>
 
-            <div id="example4">
-              <blockquote style="padding: 3em;">
+            <div class="fig" id="fig3"></div>
+
+            <p>Many financial contracts are based on Libor in some way; if you could move it, you could make millions.</p>
+
+            <p>As a qualitative example, imagine a simplified interest rate swap: a counterparty has agreed to pay you a fixed interest rate on some principal, and you have agreed to pay a floating interest rate on that principal, which moves with Libor.</p>
+
+            <p class="instructions"><span class="fig">Fig. 4</span> Financial consequences of the fluctuations in Fig. 3</p>
+
+            <div class="fig" id="fig4">
                 <p>Principal of $12,000,000</p>
                 <p>Counterparty pays you fixed interest of <span id="fixed-interest-rate"></span> = <span id="fixed-interest-dollar"></span></p>
                 <p>You pay counterparty floating interest of <span id="floating-interest-rate"></span> = <span id="floating-interest-dollar"></span></p>
                 <p>Net outcome: <span id="net-outcome"></span></p>
-              </blockquote>
             </div>
 
-            <p>If you could pull that off in real life, then you'd have the makings of a financial conspiracy for the ages TEASE TEASE LINK TO FEATURE.</p>
+            <p>If you could pull that off in real life, then you’d have the makings of <a href="http://www.bloomberg.com/news/articles/2015-09-14/was-tom-hayes-running-the-biggest-financial-conspiracy-in-history-" target="blank">a financial conspiracy for the ages</a>. Please don’t.</p>
 
 
           </section>

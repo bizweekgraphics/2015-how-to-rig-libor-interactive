@@ -95,8 +95,12 @@ function timeSeriesChart() {
           .attr("d", line);
       })
 
-      g.on("mousemove", function(d) {
-        var mouseX = xScale.invert(d3.mouse(this)[0]);
+      g.on("mousemove", onPointMove);
+      g.on("touchmove", onPointMove);
+
+      function onPointMove(d) {
+        var point = d3.touch(this) || d3.mouse(this);
+        var mouseX = xScale.invert(point[0]);
         var bisect = d3.bisector(ƒ('date')).left;
         var latest = data[bisect(data, mouseX)-1];
 
@@ -117,12 +121,12 @@ function timeSeriesChart() {
           .attr("x1", xScale(mouseX)).attr("x2", xScale(mouseX))
           .attr("y1", 0).attr("y2", height - margin.top - margin.bottom);
 
-        d3.select("#example1 .libor-chart")
+        d3.select("#fig1 .libor-chart")
           .datum(newData)
           .transition()
           .ease("linear")
           .call(liborChart().scale(true));
-      });
+      }
 
     });
   }

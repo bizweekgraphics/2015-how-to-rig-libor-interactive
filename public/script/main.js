@@ -1,12 +1,11 @@
-var rRand = d3.random.normal(.05, .01),
-    drRand = d3.random.normal(0, .00005),
+var rRand = d3.random.normal(.025, .005),
+    drRand = d3.random.normal(0, .000025),
     influenceRand = d3.random.logNormal(0,1);
 
 // EXAMPLE 1
 
 d3.csv("data/libor-usd-1week.csv", parseData, function(data) {
-  console.log(data);
-  d3.select("#example1 .time-series")
+  d3.select("#fig1 .time-series")
     .datum(data)
     .call(timeSeriesChart());
 });
@@ -46,7 +45,7 @@ var rates2 = d3.range(16).map(function(d, i) {
 var libor2 = liborChart()
   .capture(true);
 
-var chart2 = d3.select("#example2")
+var chart2 = d3.select("#fig2")
   .datum(rates2)
   .call(libor2);
 
@@ -67,7 +66,7 @@ var libor3 = liborChart()
   .capture(true)
   .influence(true);
 
-var chart3 = d3.select("#example3")
+var chart3 = d3.select("#fig3")
   .datum(rates3)
   .call(libor3);
 
@@ -96,7 +95,7 @@ function renderSwap(floatingRate) {
   var dolla = d3.format("$,.0f");
 
   var principal = 12000000;
-  var fixedRate = .05;
+  var fixedRate = .025;
 
   d3.select("#fixed-interest-rate").text(percentage2(fixedRate));
   d3.select("#floating-interest-rate").text(percentage2(floatingRate));

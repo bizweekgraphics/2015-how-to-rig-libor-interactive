@@ -10,7 +10,7 @@ function liborChart() {
   var percentage2 = d3.format(".2%");
 
   var x = d3.scale.linear()
-      .domain([0,.1])
+      .domain([0,.05])
       .range([0,width]);
 
   var xAxis = d3.svg.axis()
@@ -39,7 +39,7 @@ function liborChart() {
         var ext = d3.extent(rates, ƒ('r'));
         var mid = (ext[0]+ext[1])/2;
         var extExt = ext[1]-ext[0];
-        x.domain([mid - extExt*.75, mid + extExt*.75]);
+        x.domain([mid - extExt*1, mid + extExt*1]);
       }
 
       // Select the svg element, if it exists.
@@ -81,7 +81,7 @@ function liborChart() {
       bankGEnter.append("circle")
         .attr("cx", 0)
         .attr("cy", 0)
-        .attr("r", 2);
+        .attr("r", 3);
       bankGEnter.append("text")
         .attr("dy", "-.5em")
         .text(ƒ('name'));
@@ -155,28 +155,41 @@ function liborChart() {
     liborMark.append("path")
       .attr("d", d3.svg.symbol().type("triangle-up"));
     liborMark.append("text")
-      .attr("dy", "15px");
+      .attr("dy", "17px");
 
     if(mouseCapture) {
       svgEnterG.classed("mousey", true);
 
-      svgEnterG.on("mouseenter", function() {
-        rates.filter(function(d,i) { return d.captured; }).forEach(function(d) { d.captured = false; });
-        closest(ƒ('r'))(rates,x.invert(d3.mouse(this)[0])).captured = true;
-        sel.call(render);
-      })
+      svgEnterG.on("mouseenter", onPointStart);
+      svgEnterG.on("touchstart", onPointStart);
 
-      svgEnterG.on("mouseleave", function() {
-        closest(ƒ('r'))(rates,x.invert(d3.mouse(this)[0])).captured = false;
+      function onPointStart() {
+        var point = d3.touch(this) || d3.mouse(this);
+        rates.filter(function(d,i) { return d.captured; }).forEach(function(d) { d.captured = false; });
+        rates.sort(function(a,b) { return a.r-b.r; });
+        closest(ƒ('r'))(rates,x.invert(point[0])).captured = true;
+        sel.call(render);
+      }
+
+      svgEnterG.on("mouseleave", onPointEnd);
+      svgEnterG.on("touchend", onPointEnd);
+
+      function onPointEnd() {
+        var point = d3.touch(this) || d3.mouse(this);
+        rates.filter(function(d,i) { return d.captured; }).forEach(function(d) { d.captured = false; });
         influenceRates(false);
         sel.call(render);
-      })
+      }
 
-      svgEnterG.on("mousemove", function() {
-        rates.filter(function(d,i) { return d.captured; })[0].r = x.invert(d3.mouse(this)[0]);
+      svgEnterG.on("mousemove", onPointMove);
+      svgEnterG.on("touchmove", onPointMove);
+
+      function onPointMove() {
+        var point = d3.touch(this) || d3.mouse(this);
+        rates.filter(function(d,i) { return d.captured; })[0].r = x.invert(point[0]);
         influenceRates(d3.mouse(this));
         sel.call(render);
-      })
+      }
     }
 
     function influenceRates(mouse) {
