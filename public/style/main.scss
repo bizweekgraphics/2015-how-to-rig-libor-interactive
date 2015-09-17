@@ -6,6 +6,12 @@
     opacity: .2;
   }
 
+  line.scrub {
+    fill: none;
+    stroke: #ccc;
+    shape-rendering: crispEdges;
+  }
+
   svg > g {
     pointer-events: all;
     cursor: ew-resize;

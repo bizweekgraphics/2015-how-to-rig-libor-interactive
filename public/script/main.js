@@ -5,6 +5,7 @@ var rRand = d3.random.normal(.05, .01),
 // EXAMPLE 1
 
 d3.csv("data/libor-usd-1week.csv", parseData, function(data) {
+  console.log(data);
   d3.select("#example1 .time-series")
     .datum(data)
     .call(timeSeriesChart());
@@ -17,7 +18,11 @@ function parseData(row) {
       if(key=="date") {
         row[key] = formatDate.parse(row[key]);
       } else {
-        row[key] /= 100;
+        if(row[key] === "") {
+          row[key] = undefined;
+        } else {
+          row[key] /= 100;
+        }
       }
     }
   }
@@ -66,11 +71,11 @@ var chart3 = d3.select("#example3")
   .datum(rates3)
   .call(libor3);
 
-d3.timer(function(t) {
-  randomWalk(rates3);
-  chart3.call(libor3);
-  renderSwap(libor3.libor());
-});
+// d3.timer(function(t) {
+//   randomWalk(rates3);
+//   chart3.call(libor3);
+//   renderSwap(libor3.libor());
+// });
 
 function randomWalk(rates) {
   rates.forEach(function(d,i) {

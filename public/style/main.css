@@ -3,6 +3,10 @@
   stroke: #000;
   stroke-width: .5px;
   opacity: .2; }
+#example1 line.scrub {
+  fill: none;
+  stroke: #ccc;
+  shape-rendering: crispEdges; }
 #example1 svg > g {
   pointer-events: all;
   cursor: ew-resize; }

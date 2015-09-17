@@ -56,23 +56,27 @@ function liborChart() {
       // Update stuff
       var svgG = svg.select("g.chart-group");
 
+      // Do rates maths
+      rates = rates.filter(function(d) { return d.r !== undefined && d.r !== null; });
       rates.sort(function(a,b) { return a.r-b.r; });
       liborRates = rates.slice(Math.round(rates.length*.25),Math.round(rates.length*.75));
       liborExtent = d3.extent(liborRates, ƒ('r'));
       liborRate = liborRates.reduce(function(a, b) { return a + b.r; }, 0) / liborRates.length;
 
-      d3.transition(svg).select("line.libor-span")
+      // Draw things
+
+      d3.transition(svgG).select("line.libor-span")
         .attr("x1", function(d) { return x(liborExtent[0]); })
         .attr("x2", function(d) { return x(liborExtent[1]); });
 
-      d3.transition(svg).select("g.libor-mark")
+      d3.transition(svgG).select("g.libor-mark")
         .attr("transform", function(d) { return "translate(" + x(liborRate) + "," + (height+5) + ")"; })
         .select("text").text(percentage2(liborRate));
 
-      // Update bank dots
-      var bankGEnter = svgG.selectAll("g.bank")
-        .data(rates, ƒ('name'))
-        .enter()
+      // Update bank dots, structurally
+      var bankG = svgG.selectAll("g.bank")
+        .data(rates, ƒ('name'));
+      var bankGEnter = bankG.enter()
         .append("g.bank");
       bankGEnter.append("circle")
         .attr("cx", 0)
@@ -81,7 +85,8 @@ function liborChart() {
       bankGEnter.append("text")
         .attr("dy", "-.5em")
         .text(ƒ('name'));
-
+      bankG.exit().remove();
+      // Update bank dots styling
       svgG.selectAll("g.bank")
         .classed("captured", ƒ('captured'))
         .classed("accepted", function(d) { return d.r >= liborExtent[0] && d.r <= liborExtent[1]; });
@@ -89,7 +94,7 @@ function liborChart() {
         .attr("transform", function(d) { return "translate("+x(d.r)+"," + height/2 + ")"; })
 
       if(autoScale) {
-        d3.transition(svg).select(".x.axis").call(xAxis);
+        d3.transition(svgG).select(".x.axis").call(xAxis);
       }
 
     });

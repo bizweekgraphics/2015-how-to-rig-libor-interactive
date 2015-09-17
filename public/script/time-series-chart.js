@@ -87,9 +87,11 @@ function timeSeriesChart() {
         if(series=="date") return;
         var line = d3.svg.line()
           .x(function(d) { return xScale(d.date); })
-          .y(function(d) { return yScale(d[series]); });
+          .y(function(d) { return yScale(d[series]); })
+          .defined(function(d) { return d[series] !== undefined && d[series] !== null; });
         gEnter.append("path")
           .attr("class", "line")
+          .attr("data-bank", series)
           .attr("d", line);
       })
 
@@ -99,7 +101,6 @@ function timeSeriesChart() {
         var latest = data[bisect(data, mouseX)-1];
 
         var newData = [];
-
         for (var key in latest) {
           if (latest.hasOwnProperty(key) && key !== "date" && key !== "avg") {
             newData.push({
@@ -109,12 +110,19 @@ function timeSeriesChart() {
           }
         }
 
+        var scrubLine = g.selectAll("line.scrub").data([mouseX]);
+        scrubLine.enter().append("line.scrub");
+        scrubLine.exit().remove();
+        scrubLine
+          .attr("x1", xScale(mouseX)).attr("x2", xScale(mouseX))
+          .attr("y1", 0).attr("y2", height - margin.top - margin.bottom);
+
         d3.select("#example1 .libor-chart")
           .datum(newData)
           .transition()
           .ease("linear")
           .call(liborChart().scale(true));
-      })
+      });
 
     });
   }
