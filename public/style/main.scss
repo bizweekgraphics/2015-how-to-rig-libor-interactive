@@ -30,30 +30,6 @@ p.instructions {
   user-select: none;
 }
 
-#fig1 {
-  .time-series .line {
-    fill: none;
-    stroke: #000;
-    stroke-width: .5px;
-    opacity: .2;
-  }
-
-  .time-series line.scrub {
-    fill: none;
-    stroke: #ccc;
-    shape-rendering: crispEdges;
-  }
-
-  .time-series svg > g {
-    pointer-events: all;
-    cursor: ew-resize;
-  }
-
-  .libor-chart {
-    height: 80px;
-  }
-}
-
 #fig4 {
   p {
     font-family: sans-serif;
@@ -66,53 +42,91 @@ p.instructions {
 svg {
   font: 12px sans-serif;
   width: 100%;
+
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #ccc;
+    shape-rendering: crispEdges;
+  }
+
+  .axis text {
+    fill: #ccc;
+  }
+
+  g.chart-group.mousey {
+    pointer-events: all;
+    cursor: ew-resize;
+  }
 }
 
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #ccc;
-  shape-rendering: crispEdges;
+.time-series {
+
+  height: 120px;
+  line-height: 0;
+
+  .line {
+    fill: none;
+    stroke: #000;
+    stroke-width: .5px;
+    opacity: .2;
+  }
+
+  line.scrub {
+    fill: none;
+    stroke: #ccc;
+    shape-rendering: crispEdges;
+  }
+
+  svg > g {
+    pointer-events: all;
+    cursor: ew-resize;
+  }
 }
 
-.axis text {
-  fill: #ccc;
-}
+.libor-chart {
 
-.dot {
-  stroke: #000;
-}
+  height: 80px;
+  line-height: 0;
 
-svg g.chart-group.mousey {
-  pointer-events: all;
-  cursor: ew-resize;
-}
+  .dot {
+    stroke: #000;
+  }
 
-g.bank text {
-  text-anchor: middle;
-}
+  g.bank {
 
-line.libor-span {  
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-  stroke-width: 3;
-}
+    text {
+      text-anchor: middle;
+      visibility: hidden;
+    }
 
-g.bank:not(.accepted) {
-  fill: #ccc;
-}
+    &.captured {
+      circle {
+        stroke: red;
+        stroke-width: 2px;
+      }
+    }
 
-g.libor-mark text {
-  text-anchor: middle;
-}
+    &:not(.accepted) {
+      fill: #ccc;
+    }
 
-g.bank.captured circle {
-  stroke: red;
-  stroke-width: 2px;
-}
+    &.closest {
+      text {
+        visibility: visible
+      }
+    }
+  }
 
-g.bank line.influence {
-  stroke: red;
-  shape-rendering: crispEdges;
+  line.libor-span {  
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+    stroke-width: 3;
+  }
+
+  g.libor-mark text {
+    text-anchor: middle;
+  }
+
 }
