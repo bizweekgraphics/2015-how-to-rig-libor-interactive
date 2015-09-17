@@ -35,12 +35,12 @@ function timeSeriesChart() {
 
       // Update the x-scale.
       xScale
-          .domain(d3.extent(data, function(d) { return d.date; }))
+          .domain(d3.extent(data, ƒ('date')))
           .range([0, width - margin.left - margin.right]);
 
       // Update the y-scale.
       yScale
-          .domain([0, d3.max(data, function(d) { return d.avg; })])
+          .domain([0, d3.max(data, ƒ('avg'))])
           .range([height - margin.top - margin.bottom, 0]);
 
       // Select the svg element, if it exists.
@@ -87,19 +87,24 @@ function timeSeriesChart() {
         if(series=="date") return;
         var line = d3.svg.line()
           .x(function(d) { return xScale(d.date); })
-          .y(function(d) { return yScale(d[series]); });
+          .y(function(d) { return yScale(d[series]); })
+          .defined(function(d) { return d[series] !== undefined && d[series] !== null; });
         gEnter.append("path")
           .attr("class", "line")
+          .attr("data-bank", series)
           .attr("d", line);
       })
 
-      g.on("mousemove", function(d) {
-        var mouseX = xScale.invert(d3.mouse(this)[0]);
-        var bisect = d3.bisector(function(d) { return d.date; }).left;
+      g.on("mousemove", onPointMove);
+      g.on("touchmove", onPointMove);
+
+      function onPointMove(d) {
+        var point = d3.touch(this) || d3.mouse(this);
+        var mouseX = xScale.invert(point[0]);
+        var bisect = d3.bisector(ƒ('date')).left;
         var latest = data[bisect(data, mouseX)-1];
 
         var newData = [];
-
         for (var key in latest) {
           if (latest.hasOwnProperty(key) && key !== "date" && key !== "avg") {
             newData.push({
@@ -109,10 +114,19 @@ function timeSeriesChart() {
           }
         }
 
-        d3.select("#example1 .libor-chart")
+        var scrubLine = g.selectAll("line.scrub").data([mouseX]);
+        scrubLine.enter().append("line.scrub");
+        scrubLine.exit().remove();
+        scrubLine
+          .attr("x1", xScale(mouseX)).attr("x2", xScale(mouseX))
+          .attr("y1", 0).attr("y2", height - margin.top - margin.bottom);
+
+        d3.select("#fig1 .libor-chart")
           .datum(newData)
-          .call(liborChart());
-      })
+          .transition()
+          .ease("linear")
+          .call(liborChart().scale(true));
+      }
 
     });
   }

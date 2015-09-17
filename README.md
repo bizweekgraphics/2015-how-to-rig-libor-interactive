@@ -36,3 +36,7 @@ Their stuff sucks:
 - https://www.theice.com/marketdata/reports/186
 
 Oh but the Terminal has it all! Yay.
+
+Good info on how trimmed mean is calculated: https://www.theice.com/iba/libor#calculating
+
+Annoyingly, they round idiosyncratically...
