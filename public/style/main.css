@@ -17,7 +17,14 @@ p.instructions {
     font-weight: bold; }
 
 .fig {
-  margin: 4px auto 18px; }
+  margin: 4px auto 18px;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
 
 #fig1 .time-series .line {
   fill: none;

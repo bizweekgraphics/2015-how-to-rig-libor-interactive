@@ -13,7 +13,7 @@ function timeSeriesChart() {
       xScale = d3.time.scale(),
       yScale = d3.scale.linear(),
       percentage = d3.format(".0%"),
-      xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickSize(6, 0),
+      xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickSize(6, 0).ticks(innerWidth > 500 ? 10 : 5),
       yAxis = d3.svg.axis().scale(yScale).orient("left").tickSize(6, 0).ticks(2).tickFormat(percentage),
       line = d3.svg.line().x(X).y(Y),
       formatDate = d3.time.format("%m/%d/%Y");

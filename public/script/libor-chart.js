@@ -17,6 +17,7 @@ function liborChart() {
       .scale(x)
       .orient("bottom")
       .tickSize("10")
+      .ticks(innerWidth > 500 ? 10 : 5)
       .tickFormat(percentage2);
 
   var mouseCapture = false,
