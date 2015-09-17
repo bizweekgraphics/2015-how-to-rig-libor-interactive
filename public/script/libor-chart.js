@@ -1,13 +1,12 @@
 function liborChart() {
 
-  var sel,
+  var node,
       svg,
       margin = {top: 20, right: 20, bottom: 30, left: 20},
       width = 760 - margin.left - margin.right,
       height = 80 - margin.top - margin.bottom;
 
-  var percentage = d3.format(".0%");
-  var percentage2 = d3.format(".2%");
+  var percentage = d3.format(".2%");
 
   var x = d3.scale.linear()
       .domain([0,.05])
@@ -18,7 +17,7 @@ function liborChart() {
       .orient("bottom")
       .tickSize("10")
       .ticks(innerWidth > 500 ? 10 : 5)
-      .tickFormat(percentage2);
+      .tickFormat(percentage);
 
   var mouseCapture = false,
       mouseInfluence = false,
@@ -29,7 +28,7 @@ function liborChart() {
       liborRate;
 
   function render(selection) {
-    sel = selection;
+    node = selection.node();
     selection.each(function(rates) {
 
       // Update width to match container
@@ -72,7 +71,7 @@ function liborChart() {
 
       d3.transition(svgG).select("g.libor-mark")
         .attr("transform", function(d) { return "translate(" + x(liborRate) + "," + (height+5) + ")"; })
-        .select("text").text(percentage2(liborRate));
+        .select("text").text(percentage(liborRate));
 
       // Update bank dots, structurally
       var bankG = svgG.selectAll("g.bank")
@@ -90,6 +89,7 @@ function liborChart() {
       // Update bank dots styling
       svgG.selectAll("g.bank")
         .classed("captured", ƒ('captured'))
+        .classed("closest", ƒ('closest'))
         .classed("accepted", function(d) { return d.r >= liborExtent[0] && d.r <= liborExtent[1]; });
       d3.transition(svgG).selectAll("g.bank")
         .attr("transform", function(d) { return "translate("+x(d.r)+"," + height/2 + ")"; })
@@ -158,39 +158,59 @@ function liborChart() {
     liborMark.append("text")
       .attr("dy", "17px");
 
-    if(mouseCapture) {
-      svgEnterG.classed("mousey", true);
+    svgEnterG.classed("mousey", mouseCapture);
 
-      svgEnterG.on("mouseenter", onPointStart);
-      svgEnterG.on("touchstart", onPointStart);
+    // events
 
-      function onPointStart() {
-        var point = d3.touch(this) || d3.mouse(this);
+    svgEnterG.on("mouseenter", onPointStart);
+    svgEnterG.on("touchstart", onPointStart);
+
+    svgEnterG.on("mouseleave", onPointEnd);
+    svgEnterG.on("touchend", onPointEnd);
+
+    svgEnterG.on("mousemove", onPointMove);
+    svgEnterG.on("touchmove", onPointMove);
+
+    function onPointStart() {
+      var point = d3.touch(this) || d3.mouse(this);
+      
+      if(mouseCapture) {
         rates.filter(function(d,i) { return d.captured; }).forEach(function(d) { d.captured = false; });
         rates.sort(function(a,b) { return a.r-b.r; });
         closest(ƒ('r'))(rates,x.invert(point[0])).captured = true;
-        sel.call(render);
+        d3.select(node).call(render);
       }
+    }
 
-      svgEnterG.on("mouseleave", onPointEnd);
-      svgEnterG.on("touchend", onPointEnd);
+    function onPointEnd() {
+      var point = d3.touch(this) || d3.mouse(this);
 
-      function onPointEnd() {
-        var point = d3.touch(this) || d3.mouse(this);
+      rates.filter(function(d,i) { return d.closest; }).forEach(function(d) { d.closest = false; });
+
+      if(mouseCapture) {
         rates.filter(function(d,i) { return d.captured; }).forEach(function(d) { d.captured = false; });
         influenceRates(false);
-        sel.call(render);
       }
 
-      svgEnterG.on("mousemove", onPointMove);
-      svgEnterG.on("touchmove", onPointMove);
+      d3.select(node).call(render);
+    }
 
-      function onPointMove() {
-        var point = d3.touch(this) || d3.mouse(this);
-        rates.filter(function(d,i) { return d.captured; })[0].r = x.invert(point[0]);
+    function onPointMove() {
+      var point = d3.touch(this) || d3.mouse(this);
+      var rates = d3.select(node).datum().filter(function(d) { return d.r !== undefined && d.r !== null; });
+
+      rates.filter(function(d,i) { return d.closest; }).forEach(function(d) { d.closest = false; });
+      rates.sort(function(a,b) { return a.r-b.r; });
+      closest(ƒ('r'))(rates,x.invert(point[0])).closest = true;
+
+      if(mouseCapture) {
+        rates.filter(function(d,i) { return d.captured; }).forEach(function(d) { d.r = x.invert(point[0]); });
         influenceRates(d3.mouse(this));
-        sel.call(render);
       }
+
+      // debugger
+
+      d3.select(node).call(render);
     }
 
     function influenceRates(mouse) {

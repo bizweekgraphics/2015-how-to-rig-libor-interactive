@@ -7,6 +7,7 @@ p a:hover {
 
 p.instructions {
   font-size: 12px;
+  line-height: 1.5em;
   font-family: sans-serif;
   border-bottom: 1px dotted #ccc;
   .fig {
@@ -28,6 +29,18 @@ p.instructions {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+#fig1 {
+  svg g.bank.closest text {
+    visibility: visible;
+  }
+}
+
+#fig2, #fig3 {
+  svg g.bank.captured text {
+    visibility: visible;
+  }
 }
 
 #fig4 {
@@ -54,9 +67,8 @@ svg {
     fill: #ccc;
   }
 
-  g.chart-group.mousey {
+  g.chart-group {
     pointer-events: all;
-    cursor: ew-resize;
   }
 }
 
@@ -78,8 +90,7 @@ svg {
     shape-rendering: crispEdges;
   }
 
-  svg > g {
-    pointer-events: all;
+  g.chart-group {
     cursor: ew-resize;
   }
 }
@@ -88,6 +99,10 @@ svg {
 
   height: 80px;
   line-height: 0;
+
+  g.chart-group.mousey {
+    cursor: ew-resize;
+  }
 
   .dot {
     stroke: #000;
@@ -111,11 +126,6 @@ svg {
       fill: #ccc;
     }
 
-    &.closest {
-      text {
-        visibility: visible
-      }
-    }
   }
 
   line.libor-span {  

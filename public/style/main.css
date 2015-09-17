@@ -6,6 +6,7 @@ p a:hover {
 
 p.instructions {
   font-size: 12px;
+  line-height: 1.5em;
   font-family: sans-serif;
   border-bottom: 1px dotted #ccc; }
   p.instructions .fig {
@@ -26,6 +27,12 @@ p.instructions {
   -ms-user-select: none;
   user-select: none; }
 
+#fig1 svg g.bank.closest text {
+  visibility: visible; }
+
+#fig2 svg g.bank.captured text, #fig3 svg g.bank.captured text {
+  visibility: visible; }
+
 #fig4 p {
   font-family: sans-serif;
   font-size: 12px;
@@ -42,9 +49,8 @@ svg {
     shape-rendering: crispEdges; }
   svg .axis text {
     fill: #ccc; }
-  svg g.chart-group.mousey {
-    pointer-events: all;
-    cursor: ew-resize; }
+  svg g.chart-group {
+    pointer-events: all; }
 
 .time-series {
   height: 120px;
@@ -58,13 +64,14 @@ svg {
     fill: none;
     stroke: #ccc;
     shape-rendering: crispEdges; }
-  .time-series svg > g {
-    pointer-events: all;
+  .time-series g.chart-group {
     cursor: ew-resize; }
 
 .libor-chart {
   height: 80px;
   line-height: 0; }
+  .libor-chart g.chart-group.mousey {
+    cursor: ew-resize; }
   .libor-chart .dot {
     stroke: #000; }
   .libor-chart g.bank text {
@@ -75,8 +82,6 @@ svg {
     stroke-width: 2px; }
   .libor-chart g.bank:not(.accepted) {
     fill: #ccc; }
-  .libor-chart g.bank.closest text {
-    visibility: visible; }
   .libor-chart line.libor-span {
     fill: none;
     stroke: #000;

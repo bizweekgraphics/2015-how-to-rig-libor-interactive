@@ -47,7 +47,7 @@ function timeSeriesChart() {
       var svg = d3.select(this).selectAll("svg").data([data]);
 
       // Otherwise, create the skeletal chart.
-      var gEnter = svg.enter().append("svg").append("g");
+      var gEnter = svg.enter().append("svg").append("g.chart-group");
       // gEnter.append("path").attr("class", "line");
       gEnter.append("g").attr("class", "x axis");
       gEnter.append("g").attr("class", "y axis");
