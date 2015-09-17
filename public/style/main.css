@@ -1,3 +1,9 @@
+p a {
+  color: #2B00F7; }
+
+p a:hover {
+  border-bottom: 1px solid #2B00F7; }
+
 p.instructions {
   font-size: 12px;
   font-family: sans-serif;
