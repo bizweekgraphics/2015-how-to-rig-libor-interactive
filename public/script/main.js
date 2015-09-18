@@ -4,7 +4,7 @@ var rRand = d3.random.normal(.025, .005),
 
 // EXAMPLE 1
 
-d3.csv("data/libor-usd-1week.csv", parseData, function(data) {
+d3.csv("data/libor-jpy-6month.csv", parseData, function(data) {
   d3.select("#fig1 .time-series")
     .datum(data)
     .call(timeSeriesChart());

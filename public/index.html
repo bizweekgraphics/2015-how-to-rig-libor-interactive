@@ -19,33 +19,37 @@
 
         <!-- meta tags for this project -->
         <!-- SEO headline rewritten to accomidate keywords -->
-        <title>How Libor Works - Bloomberg Business</title>
+        <title>How to Rig Libor - Bloomberg Business</title>
 
         <!-- What flavor of Bloomberg will this graphic be on? -->
         <meta property="og:site_name" content="Bloomberg.com"/>
         <!-- What is the main headline? -->
-        <meta property="og:title" content="YOUR HEADLINE HERE">
+        <meta property="og:title" content="How to Rig Libor">
         <!-- What is the tweet / share statement? -->
-        <meta property="og:longTitle" content="twitter share language">
+        <meta property="og:longTitle" content="The way Libor is computed is meant to avoid manipulation; see if you can do it">
         <!-- What is the share-able image -->
         <!-- Image aspect ratio: 1.91:1 Image Dimensions: 1200x630px -->
-        <meta property="og:image" content="http://www.bloomberg.com/graphics/YOUR-SLUG-HERE/img/IMAGE-FILE"/>
+        <meta property="og:image" content="http://www.bloomberg.com/graphics/2015-how-to-rig-libor-interactive/thumb.png"/>
         <!-- These two can be the dek text -->
-        <meta property="og:description" content=""/>
-        <meta name="description" content="">
+        <meta property="og:description" content="The way Libor is computed is meant to avoid manipulation; see if you can do it"/>
+        <meta name="description" content="The way Libor is computed is meant to avoid manipulation; see if you can do it">
         <!-- Some keywords if you want -->
-        <meta name="keywords" content="Bloomberg Graphics"/>
+        <meta name="keywords" content="Bloomberg Graphics Libor Tom Hayes rigging toy model"/>
         <!-- The full link to this graphic -->
-        <meta property="og:url" content="http://www.bloomberg.com/graphics/YOUR-SLUG-HERE/"/>
+        <meta property="og:url" content="http://www.bloomberg.com/graphics/2015-how-to-rig-libor-interactive/"/>
 
         <!-- Parsely tracking -->
         <meta name="parsely-type" content="post" data-ephemeral="true">
         <meta name="parsely-section" content="graphics" data-ephemeral="true">
 
         <meta property="og:type" content="article"/>
-        <meta name="twitter:card" content="summary"/>
-        <!-- @bbgvisualdata is Bloomberg Graphics -->
-        <meta name="twitter:site" content="@bbgvisualdata"/>
+
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@business">
+        <meta name="twitter:creator" content="@tophtucker">
+        <meta name="twitter:title" content="How to Rig Libor">
+        <meta name="twitter:description" content="The way Libor is computed is meant to avoid manipulation; see if you can do it">
+        <meta name="twitter:image" content="http://www.bloomberg.com/graphics/2015-how-to-rig-libor-interactive/thumb.png">
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <link rel="stylesheet" type="text/css" href="http://www.bloomberg.com/graphics/assets/css/fonts.css"/>
@@ -101,7 +105,7 @@
 
         <div id="inner-content">
 
-          <div class="article-title copywidth">How Libor Works</div>
+          <div class="article-title copywidth">How to Rig Libor</div>
           <div class="bydek copywidth">
             By
             <a href="https://twitter.com/tophtucker" alt="@tophtucker" target="blank" class="t-hide">
@@ -110,43 +114,41 @@
             <span class="t-show t-inline-block">
               Toph Tucker
             </span>
-            <div>September 3, 2015</div>
+            <div>September 18, 2015</div>
           </div>
           <div class="clearboth"></div>
 
 
           <section class="copyblock copywidth">
 
-            <p>The London Interbank Offered Rate, or Libor, is a global benchmark for the cost of borrowing. Every day, 16 banks say how much it might cost them to borrow money, in various currencies, for various lengths of time. In each category, the four highest and four lowest submitted figures are discarded, and the average of the remaining eight become that day’s Libor in that category.</p>
+            <p>The <a href="https://www.theice.com/iba/libor" target="blank">London Interbank Offered Rate</a>, or Libor, is a global benchmark for the cost of borrowing. Every day, a panel of banks say how much it might cost them to borrow money, in various currencies, for various lengths of time (or maturities). In each category, the highest quarter and lowest quarter of submitted figures are discarded, and the average of the remaining figures become that day’s Libor in that category.</p>
 
-            <p>For example, the U.S. dollar 1-week Libor is shown below. Notice how rates spiked during the 2008 financial crisis, and have been low lately. TK MORE ANALYSIS, OTHER CURRENCY/MATURITY OPTIONS?</p>
+            <p>For example, the yen 6-month Libor is shown below; it is at about a tenth of where it was during the late-2008 financial crisis, reflecting easier, safer borrowing.</p>
 
-            <p class="instructions"><span class="fig">Fig. 1</span> Mouse or touch to see banks’ submitted rates on a given date</p>
+            <p class="instructions"><span class="fig">Fig. 1</span> ICE Libor JPY 6 Month. Drag to see banks’ submitted rates over time</p>
 
             <div class="fig" id="fig1">
               <div class="time-series"></div>
               <div class="libor-chart"></div>
             </div>
 
-            <p>The fact that Libor is computed as a “trimmed average” means that submitting a wildly high or low guess doesn’t move the figure. Even if you had total control over how one bank sets its rates, you couldn’t necessarily move Libor at all.</p>
+            <p>The fact that Libor is computed as a “trimmed average” (with outliers discarded) means that submitting a wildly high or low guess doesn’t move the figure. Even if you had total control over how one bank sets its rates, you couldn’t necessarily move Libor at all.</p>
 
-            <p class="instructions"><span class="fig">Fig. 2</span> Mouse or touch to change a hypothetical bank’s submitted rate</p>
+            <p class="instructions"><span class="fig">Fig. 2</span> Hypothetical. Drag to change a hypothetical bank’s submitted rate</p>
 
             <div class="fig libor-chart" id="fig2"></div>
 
-            <p>So when banker Tom Hayes allegedly set out to manipulate rates, he needed help. He allegedly offered favors to people in power, as well as counting on some degree of lazy herd mentality: some people just set their rates based on where they expect others to set their rates. TK UM REREAD THE STORY AND WRITE THIS BETTER :)</p>
+            <p>So when trader Tom Hayes set out to manipulate Libor, he bribed traders at other banks with lunches and kickbacks. He also took advantage of the lazy herd mentality that leads bankers to just set rates according to where guidance predicted others to set rates.</p>
 
-            <p>In this hypothetical toy model of how Libor works, you have total control over how one bank sets its rates, and some random partial influence on other banks, who will tend to follow you.</p>
+            <p>In this hypothetical model, bank’s rates follow a random walk, and moving one bank’s submissions has some random partial influence over other banks’ submitted rates. (This is only very roughly instructive.)</p>
 
-            <p class="instructions"><span class="fig">Fig. 3</span> Mouse or touch to change a hypothetical bank’s submitted rate; others may follow</p>
+            <p class="instructions"><span class="fig">Fig. 3</span> Hypothetical. Drag to change a hypothetical bank’s submitted rate</p>
 
             <div class="fig libor-chart" id="fig3"></div>
 
-            <p>Many financial contracts are based on Libor in some way; if you could move it, you could make millions.</p>
+            <p>Many financial contracts are based on Libor in some way, so manipulating it can pay off. Imagine a simplified interest rate swap: Alice has agreed to pay Bob a fixed interest rate on some principal, and Bob has agreed to pay Alice a floating interest rate on that principal, which moves with Libor. Try maximizing what one pays the other.</p>
 
-            <p>As a qualitative example, imagine a simplified interest rate swap: a counterparty has agreed to pay you a fixed interest rate on some principal, and you have agreed to pay a floating interest rate on that principal, which moves with Libor.</p>
-
-            <p class="instructions"><span class="fig">Fig. 4</span> Hypothetical financial consequences of the hypothetical fluctuations in Fig. 3</p>
+            <p class="instructions"><span class="fig">Fig. 4</span> Hypothetical consequences of fluctuations in Fig. 3. Drag to change principal</p>
 
             <div class="fig" id="fig4">
                 <div class="principal">
@@ -171,7 +173,7 @@
                 </div>
             </div>
 
-            <p>If you could pull that off in real life, then you’d have the makings of <a href="http://www.bloomberg.com/news/articles/2015-09-14/was-tom-hayes-running-the-biggest-financial-conspiracy-in-history-" target="blank">a financial conspiracy for the ages</a>. Please don’t.</p>
+            <p>If you could pull that off in real life, then you might have the makings of <a href="http://www.bloomberg.com/news/articles/2015-09-14/was-tom-hayes-running-the-biggest-financial-conspiracy-in-history-" target="blank">a financial conspiracy for the ages</a> — and a stay at Her Majesty’s Prison Wandsworth. Please don’t.</p>
 
 
           </section>
@@ -180,7 +182,7 @@
           <div id="footer">
             <div class="container">
               <div class="left"></div>
-              <div class="source">SOURCES: TK</div>
+              <div class="source">HISTORICAL SOURCE: Intercontinental Exchange, compiled by Bloomberg</div>
               <div class="clearboth">&nbsp;</div>
             </div>
           </div>
@@ -208,13 +210,13 @@
           // //Required: Uncomment config block and fill this out
           // //bb_brand will always have bbiz and optionally one of the following: bpol, bmkt, bpur, btech, bview
           var config = {
-            'name': 'blp.visual-data:graphics-YOUR-SLUG-HERE',
+            'name': 'blp.visual-data:graphics-2015-how-to-rig-libor-interactive',
             'bb_brand': 'bbiz',
-            'bb_slug': 'YOUR-SLUG-HERE',
-            'bb_author': 'Author Name(s)',
-            'bb_cg_3': 'A long description here',
-            'bb_groupId': 'visual-data/YOUR-SLUG-HERE',
-            'bb_pub_d': '2015-01-01T00:15:00+04:00',
+            'bb_slug': '2015-how-to-rig-libor-interactive',
+            'bb_author': 'Toph Tucker',
+            'bb_cg_3': 'The way Libor is computed is meant to avoid manipulation; see if you can do it',
+            'bb_groupId': 'visual-data/2015-how-to-rig-libor-interactive',
+            'bb_pub_d': '2015-09-18T09:15:00+04:00',
             'correlator': (new String(Math.random()).substring(2,11)),
             'ad_code': '', //don't forget leading '/5262' - /5262/business/insights/focus_on_mba
             'num_ad_scroll_refesh': 3
