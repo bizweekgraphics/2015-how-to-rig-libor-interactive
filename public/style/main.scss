@@ -1,3 +1,5 @@
+@import 'slider';
+
 p a {
   color: #2B00F7;
 }
@@ -7,6 +9,7 @@ p a:hover {
 
 p.instructions {
   font-size: 12px;
+  line-height: 1.5em;
   font-family: sans-serif;
   border-bottom: 1px dotted #ccc;
   .fig {
@@ -31,88 +34,176 @@ p.instructions {
 }
 
 #fig1 {
-  .time-series .line {
+  svg g.bank.closest text {
+    visibility: visible;
+  }
+  .time-series {
+    margin-bottom: 18px;
+  }
+}
+
+#fig2, #fig3 {
+  svg g.bank.captured text {
+    visibility: visible;
+  }
+}
+
+#fig4 {
+
+  &>div {
+    padding: .5em 0;
+    position: relative;
+  }
+
+  font-family: sans-serif;
+
+  div.principal {
+    text-align: center;
+  }
+
+  div.counterparty {
+    display: inline-block;
+    width: 50%;
+    &.payer {
+      text-align: left;
+      .bar {
+        left: 0;
+      }
+    }
+    &.receiver {
+      text-align: right;
+      .bar {
+        right: 0;
+      }
+    }
+  }
+
+  div.net {
+    text-align: center;
+    border-top: 1px solid #ccc;
+
+    .bar {
+      width: -50px;
+
+      &.payer {
+        left: 50%;
+      }
+      &.receiver {
+        right: 50%;
+      }
+    }
+  }
+
+  .figure {
+    font-size: 1.5em; 
+    font-weight: bold;
+  }
+
+  .caption {
+    font-size: 12px;
+  }
+
+  .bar {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    z-index: -1;
+    width: 20px;
+    &.payer {
+      background: hsla(203, 100%, 48%,.3);
+    }
+    &.receiver {
+      background: rgba(0,255,0,.3);
+    }
+  }
+
+}
+
+svg {
+  font: 12px sans-serif;
+  width: 100%;
+
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #ccc;
+    shape-rendering: crispEdges;
+  }
+
+  .axis text {
+    fill: #ccc;
+  }
+
+  g.chart-group {
+    pointer-events: all;
+  }
+}
+
+.time-series {
+
+  height: 120px;
+  line-height: 0;
+
+  .line {
     fill: none;
     stroke: #000;
     stroke-width: .5px;
     opacity: .2;
   }
 
-  .time-series line.scrub {
+  line.scrub {
     fill: none;
     stroke: #ccc;
     shape-rendering: crispEdges;
   }
 
-  .time-series svg > g {
-    pointer-events: all;
+  g.chart-group {
+    cursor: ew-resize;
+  }
+}
+
+.libor-chart {
+
+  height: 60px;
+  line-height: 0;
+
+  g.chart-group.mousey {
     cursor: ew-resize;
   }
 
-  .libor-chart {
-    height: 80px;
+  .dot {
+    stroke: #000;
   }
-}
 
-#fig4 {
-  p {
-    font-family: sans-serif;
-    font-size: 12px;
-    margin: 0;
-    padding: 0;
+  g.bank {
+
+    text {
+      text-anchor: middle;
+      visibility: hidden;
+    }
+
+    &.captured {
+      circle {
+        stroke: red;
+        stroke-width: 2px;
+      }
+    }
+
+    &:not(.accepted) {
+      fill: #ccc;
+    }
+
   }
-}
 
-svg {
-  font: 12px sans-serif;
-  width: 100%;
-}
+  line.libor-span {  
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+    stroke-width: 3;
+  }
 
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #ccc;
-  shape-rendering: crispEdges;
-}
+  g.libor-mark text {
+    text-anchor: middle;
+  }
 
-.axis text {
-  fill: #ccc;
-}
-
-.dot {
-  stroke: #000;
-}
-
-svg g.chart-group.mousey {
-  pointer-events: all;
-  cursor: ew-resize;
-}
-
-g.bank text {
-  text-anchor: middle;
-}
-
-line.libor-span {  
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-  stroke-width: 3;
-}
-
-g.bank:not(.accepted) {
-  fill: #ccc;
-}
-
-g.libor-mark text {
-  text-anchor: middle;
-}
-
-g.bank.captured circle {
-  stroke: red;
-  stroke-width: 2px;
-}
-
-g.bank line.influence {
-  stroke: red;
-  shape-rendering: crispEdges;
 }
