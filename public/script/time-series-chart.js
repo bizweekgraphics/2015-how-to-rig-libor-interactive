@@ -109,6 +109,7 @@ function timeSeriesChart() {
         var bisect = d3.bisector(ƒ('date')).left;
         var latest = data[bisect(data, mouseX)-1];
 
+        globalFiatLiborLol = latest.avg;
         var newData = [];
         for (var key in latest) {
           if (latest.hasOwnProperty(key) && key !== "date" && key !== "avg") {
@@ -130,7 +131,7 @@ function timeSeriesChart() {
           .datum(newData)
           .transition()
           .ease("linear")
-          .call(liborChart().scale(true).fiatLibor(latest.avg));
+          .call(liborChart().scale(true).fiatLibor(true));
       }
 
     });

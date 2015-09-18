@@ -1,3 +1,5 @@
+var globalFiatLiborLol = false;
+
 function liborChart() {
 
   var node,
@@ -71,8 +73,8 @@ function liborChart() {
         .attr("x2", function(d) { return x(liborExtent[1]); });
 
       d3.transition(svgG).select("g.libor-mark")
-        .attr("transform", function(d) { return "translate(" + x(fiatLiborRate || liborRate) + "," + (height+5) + ")"; })
-        .select("text").text(percentage(fiatLiborRate || liborRate));
+        .attr("transform", function(d) { return "translate(" + x(fiatLiborRate ? globalFiatLiborLol : liborRate) + "," + (height+5) + ")"; })
+        .select("text").text(percentage(fiatLiborRate ? globalFiatLiborLol : liborRate));
 
       // Update bank dots, structurally
       var bankG = svgG.selectAll("g.bank")
@@ -214,8 +216,6 @@ function liborChart() {
         rates.filter(function(d,i) { return d.captured; }).forEach(function(d) { d.r = x.invert(point[0]); });
         influenceRates(d3.mouse(this));
       }
-
-      // debugger
 
       d3.select(node).call(render);
     }
