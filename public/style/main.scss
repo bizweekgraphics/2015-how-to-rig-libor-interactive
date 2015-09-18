@@ -35,6 +35,9 @@ p.instructions {
   svg g.bank.closest text {
     visibility: visible;
   }
+  .time-series {
+    margin-bottom: 18px;
+  }
 }
 
 #fig2, #fig3 {
@@ -97,7 +100,7 @@ svg {
 
 .libor-chart {
 
-  height: 80px;
+  height: 60px;
   line-height: 0;
 
   g.chart-group.mousey {

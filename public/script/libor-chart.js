@@ -2,9 +2,9 @@ function liborChart() {
 
   var node,
       svg,
-      margin = {top: 20, right: 20, bottom: 30, left: 20},
+      margin = {top: 10, right: 20, bottom: 30, left: 20},
       width = 760 - margin.left - margin.right,
-      height = 80 - margin.top - margin.bottom;
+      height = 60 - margin.top - margin.bottom;
 
   var percentage = d3.format(".2%");
 

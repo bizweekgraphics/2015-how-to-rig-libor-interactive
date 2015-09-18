@@ -70,11 +70,11 @@ var chart3 = d3.select("#fig3")
   .datum(rates3)
   .call(libor3);
 
-// d3.timer(function(t) {
-//   randomWalk(rates3);
-//   chart3.call(libor3);
-//   renderSwap(libor3.libor());
-// });
+d3.timer(function(t) {
+  randomWalk(rates3);
+  chart3.call(libor3);
+  renderSwap(libor3.libor());
+});
 
 function randomWalk(rates) {
   rates.forEach(function(d,i) {
