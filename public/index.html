@@ -144,15 +144,31 @@
 
             <p>Many financial contracts are based on Libor in some way; if you could move it, you could make millions.</p>
 
-            <p>As a qualitative example, imagine a simplified interest rate swap: a counterparty has agreed to pay you a fixed interest rate on some principal, and you have agreed to pay a floating interest rate on that principal, which moves with Libor. TK BETTER VISUALIZATION OF THIS, MAYBE SOME INTERACTIVITY</p>
+            <p>As a qualitative example, imagine a simplified interest rate swap: a counterparty has agreed to pay you a fixed interest rate on some principal, and you have agreed to pay a floating interest rate on that principal, which moves with Libor.</p>
 
-            <p class="instructions"><span class="fig">Fig. 4</span> Financial consequences of the fluctuations in Fig. 3</p>
+            <p class="instructions"><span class="fig">Fig. 4</span> Hypothetical financial consequences of the hypothetical fluctuations in Fig. 3</p>
 
             <div class="fig" id="fig4">
-                <p>Principal of $12,000,000</p>
-                <p>Every period, counterparty pays you fixed interest of <span id="fixed-interest-rate"></span> = <span id="fixed-interest-dollar"></span></p>
-                <p>Every period, you pay counterparty floating interest of <span id="floating-interest-rate"></span> = <span id="floating-interest-dollar"></span></p>
-                <p>Net outcome every period: <span id="net-outcome"></span></p>
+                <div class="principal">
+                  <div class="caption">On a principal of</div>
+                  <div class="figure" data-figure="principal"></div>
+                  <div class="slider"></div>
+                </div><div class="counterparty payer">
+                  <div class="caption">Alice pays fixed rate of</div>
+                  <div class="figure" data-figure="fixed-rate"></div>
+                  <div class="caption" data-figure="fixed-dollar"></div>
+                  <div class="bar payer"></div>
+                </div><div class="counterparty receiver">
+                  <div class="caption">Bob pays floating rate of</div>
+                  <div class="figure" data-figure="floating-rate"></div>
+                  <div class="caption" data-figure="floating-dollar"></div>
+                  <div class="bar receiver"></div>
+                </div><div class="net">
+                  <div class="caption" data-figure="net-caption"></div>
+                  <div class="figure" data-figure="net-figure"></div>
+                  <div class="caption">each period</div>
+                  <div class="bar payer"></div>
+                </div>
             </div>
 
             <p>If you could pull that off in real life, then you’d have the makings of <a href="http://www.bloomberg.com/news/articles/2015-09-14/was-tom-hayes-running-the-biggest-financial-conspiracy-in-history-" target="blank">a financial conspiracy for the ages</a>. Please don’t.</p>
@@ -230,6 +246,7 @@
         </script>
 
         <script src="script/d3-jetpack.js" charset="utf-8"></script>
+        <script src="script/slider.js" charset="utf-8"></script>
         <script src="script/libor-chart.js" charset="utf-8"></script>
         <script src="script/time-series-chart.js" charset="utf-8"></script>
         <script src="script/main.js" charset="utf-8"></script>

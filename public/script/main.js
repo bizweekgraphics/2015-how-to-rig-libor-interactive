@@ -90,22 +90,42 @@ function randomWalk(rates) {
 
 // EXAMPLE 4
 
+var percentage = d3.format(".2%");
+var dolla = d3.format("$,.0f");
+
+var principal = 1e6;
+var fixedRate = .025;
+
+sliderDispatch.on("sliderChange.main", function(value) {
+  principal = value;
+  d3.select('[data-figure="principal"]').text(dolla(principal));
+});
+sliderDispatch.sliderChange(principal);
+
+var swapScale = d3.scale.linear()
+  .domain([0,50000])
+  .range([0,d3.select(".counterparty").node().offsetWidth]);
+
 function renderSwap(floatingRate) {
-  var percentage2 = d3.format(".2%");
-  var dolla = d3.format("$,.0f");
 
-  var principal = 12000000;
-  var fixedRate = .025;
+  d3.select('[data-figure="fixed-rate"]').text(percentage(fixedRate));
+  d3.select('[data-figure="floating-rate"]').text(percentage(floatingRate));
 
-  d3.select("#fixed-interest-rate").text(percentage2(fixedRate));
-  d3.select("#floating-interest-rate").text(percentage2(floatingRate));
-
-  d3.select("#fixed-interest-dollar").text(dolla(fixedRate*principal));
-  d3.select("#floating-interest-dollar").text(dolla(floatingRate*principal));
+  d3.select('[data-figure="fixed-dollar"]').text(dolla(fixedRate*principal));
+  d3.select('[data-figure="floating-dollar"]').text(dolla(floatingRate*principal));
 
   var net = (fixedRate*principal) - (floatingRate*principal);
+  var payerSide = net > 0;
 
-  d3.select("#net-outcome").text((net > 0 ? "You receive " : "You pay ") + dolla(Math.abs(net)))
+  d3.select('[data-figure="net-caption"]').text(payerSide ? "Alice pays Bob" : "Bob pays Alice");
+  d3.select('[data-figure="net-figure"]').text(dolla(Math.abs(net)));
+
+  d3.select(".payer .bar").style("width", swapScale(fixedRate*principal)+"px");
+  d3.select(".receiver .bar").style("width", swapScale(floatingRate*principal)+"px")
+  d3.select(".net .bar")
+    .style("width", swapScale(Math.abs(net))+"px")
+    .classed("payer", payerSide)
+    .classed("receiver", !payerSide);
 
 }
 

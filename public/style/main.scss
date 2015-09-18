@@ -1,3 +1,5 @@
+@import 'slider';
+
 p a {
   color: #2B00F7;
 }
@@ -47,12 +49,74 @@ p.instructions {
 }
 
 #fig4 {
-  p {
-    font-family: sans-serif;
-    font-size: 12px;
-    margin: 0;
-    padding: 0;
+
+  &>div {
+    padding: .5em 0;
+    position: relative;
   }
+
+  font-family: sans-serif;
+
+  div.principal {
+    text-align: center;
+  }
+
+  div.counterparty {
+    display: inline-block;
+    width: 50%;
+    &.payer {
+      text-align: left;
+      .bar {
+        left: 0;
+      }
+    }
+    &.receiver {
+      text-align: right;
+      .bar {
+        right: 0;
+      }
+    }
+  }
+
+  div.net {
+    text-align: center;
+    border-top: 1px solid #ccc;
+
+    .bar {
+      width: -50px;
+
+      &.payer {
+        left: 50%;
+      }
+      &.receiver {
+        right: 50%;
+      }
+    }
+  }
+
+  .figure {
+    font-size: 1.5em; 
+    font-weight: bold;
+  }
+
+  .caption {
+    font-size: 12px;
+  }
+
+  .bar {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    z-index: -1;
+    width: 20px;
+    &.payer {
+      background: hsla(203, 100%, 48%,.3);
+    }
+    &.receiver {
+      background: rgba(0,255,0,.3);
+    }
+  }
+
 }
 
 svg {
