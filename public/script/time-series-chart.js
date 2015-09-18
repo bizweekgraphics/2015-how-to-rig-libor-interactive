@@ -130,7 +130,7 @@ function timeSeriesChart() {
           .datum(newData)
           .transition()
           .ease("linear")
-          .call(liborChart().scale(true));
+          .call(liborChart().scale(true).fiatLibor(latest.avg));
       }
 
     });

@@ -156,5 +156,7 @@ svg {
     stroke-width: 3; }
   .libor-chart g.libor-mark text {
     text-anchor: middle; }
+  .libor-chart g.libor-mark-fiat {
+    fill: red; }
 
 /*# sourceMappingURL=main.css.map */
