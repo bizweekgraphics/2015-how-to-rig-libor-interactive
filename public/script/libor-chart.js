@@ -71,16 +71,8 @@ function liborChart() {
         .attr("x2", function(d) { return x(liborExtent[1]); });
 
       d3.transition(svgG).select("g.libor-mark")
-        .attr("transform", function(d) { return "translate(" + x(liborRate) + "," + (height+5) + ")"; })
-        .style("opacity", .5)
-        .select("text").text(percentage(liborRate));
-
-      d3.transition(svgG).select("g.libor-mark-fiat")
-        .attr("transform", function(d) { return "translate(" + x(fiatLiborRate) + "," + (height+7) + ")"; })
-        .style("opacity", .5)
-        .select("text").text(percentage(fiatLiborRate));
-
-      console.log(fiatLiborRate);
+        .attr("transform", function(d) { return "translate(" + x(fiatLiborRate || liborRate) + "," + (height+5) + ")"; })
+        .select("text").text(percentage(fiatLiborRate || liborRate));
 
       // Update bank dots, structurally
       var bankG = svgG.selectAll("g.bank")
@@ -172,13 +164,6 @@ function liborChart() {
       .attr("d", d3.svg.symbol().type("triangle-up"));
     liborMark.append("text")
       .attr("dy", "17px");
-
-    var liborMarkFiat = svgEnterG.append("g.libor-mark-fiat");
-    liborMarkFiat.append("path")
-      .attr("d", d3.svg.symbol().type("triangle-up"));
-    liborMarkFiat.append("text")
-      .attr("dy", "17px");
-
 
     svgEnterG.classed("mousey", mouseCapture);
 
