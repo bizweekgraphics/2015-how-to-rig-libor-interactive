@@ -5,14 +5,14 @@
 // hi mike ilu
 
 function timeSeriesChart() {
-  var margin = {top: 20, right: 20, bottom: 20, left: 30},
+  var margin = {top: 20, right: 20, bottom: 20, left: 40},
       width = 760,
       height = 120,
       xValue = function(d) { return d[0]; },
       yValue = function(d) { return d[1]; },
       xScale = d3.time.scale(),
       yScale = d3.scale.linear(),
-      percentage = d3.format(".0%"),
+      percentage = d3.format(".1%"),
       xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickSize(6, 0).ticks(innerWidth > 500 ? 10 : 5),
       yAxis = d3.svg.axis().scale(yScale).orient("left").tickSize(6, 0).ticks(2).tickFormat(percentage),
       line = d3.svg.line().x(X).y(Y),
@@ -58,8 +58,8 @@ function timeSeriesChart() {
         .style('visibility', 'hidden')
         .attr('x', 0)
         .attr('y', 0)
-        .attr('width', width)
-        .attr('height', height+margin.bottom);
+        .attr('width', width - margin.left - margin.right)
+        .attr('height', height - margin.top - margin.bottom);
 
       // Update the outer dimensions.
       svg .attr("width", width)
@@ -101,6 +101,11 @@ function timeSeriesChart() {
       function onPointMove(d) {
         var point = d3.touch(this) || d3.mouse(this);
         var mouseX = xScale.invert(point[0]);
+
+        // out of bounds, too low
+        if(mouseX < xScale.domain()[0]) return;
+        if(mouseX > xScale.domain()[1]) return;
+
         var bisect = d3.bisector(ƒ('date')).left;
         var latest = data[bisect(data, mouseX)-1];
 
